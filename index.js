@@ -9,8 +9,11 @@ const PORT = 5000;
 
 app.use(bodyParser.json());
 
+// inicia conexão com o banco de dados
 pgClient.connect();
 
 app.use('/', router)
 app.get('/', (req, res) => res.send('[CONTRAPONTO API]'))
-app.listen(PORT, () => console.log(`Server is running @ http://localhost:${PORT}`))
+
+// inicia o servidor na porta definida
+app.listen(PORT, () => console.log(`Servidor está online em: @ http://localhost:${PORT}`))
