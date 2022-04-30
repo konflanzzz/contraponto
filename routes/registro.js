@@ -19,7 +19,11 @@ router.get('/contraponto/registro', (req, res) => {
         if (!err) {
 
             // retorna para o client, os registros obtidos do banco
-            res.send(result.rows);
+            res.send({
+                xStat: "Consulta de registros realizada com sucesso",
+                cStat: 200,
+                registros: result.rows
+            })
         }
     });
 
@@ -45,7 +49,7 @@ router.post('/contraponto/registro', (req, res) => {
 
         if (!err) {
             // se não houver erros gera uma mensagem de retorno para o client
-            res.send('Dados inseridos no banco com sucesso')
+            res.send({ xStat: "Registro de ponto efetuado com sucesso", cStat: 200 })
         } else {
             // caso haja algum erro, registra no console a mensagem capturada 
             console.log(err.message)
@@ -55,6 +59,10 @@ router.post('/contraponto/registro', (req, res) => {
     // encerra conexão com o banco
     pgClient.end;
 });
+
+
+
+
 
 // implementa uma rota para permitir o calculo do salario baseado em horas trabalhadas
 router.get('/contraponto/remunera', (req, res) => {
@@ -96,9 +104,12 @@ router.get('/contraponto/remunera', (req, res) => {
 
             // retorna para o client o valor de horas multiplicadas pelo salario / hora
             // resultando no valor em R$ a ser pago
-            res.send(`Salário do funcionário = R$ ` + horasTrabalhadas * 11.50)
+            res.send({
+                xStat: "Sucesso ao calcular remuneração do colaborador",
+                cStat: 200,
+                remuneracao: horasTrabalhadas * 11.50
+            })
         }
-
     });
 
     // encerra conexão com o banco
